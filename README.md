@@ -49,7 +49,7 @@ less Dockerfile
 ```
 
 ```
-docker build -t rosskukulinski/helloworld:v1.0.0 .
+docker build -t abraaojs/continuous-delivery .
 ```
 
 ```
@@ -57,7 +57,7 @@ docker images
 ```
 
 ```
-docker push rosskukulinski/helloworld:v1.0.0
+docker push abraaojs/continuous-delivery
 ```
 
 ## Deploying Containers with Kubernetes
@@ -173,72 +173,4 @@ kubectl describe deployments/helloworld
 
 ```
 curl http://<podip>
-```
-
-
-
-
-## Troubleshooting
-
-```
-kubectl get pods
-```
-
-```
-kubectl label pods <pod> track-
-```
-
-```
-kubectl label pods <pod> track=stable
-```
-
-
-## Canary Pattern
-
-```
-less deployments/helloworld-canary.yml
-```
-
-```
-kubectl create -f deployments/helloworld-canary.yml
-```
-
-```
-kubectl get pods
-```
-
-```
-while true; do curl http://<lb-public-ip>/version; sleep .5; done
-```
-
-## Label Queries
-
-```
-kubectl get pods
-```
-
-```
-kubectl get pods -l app=helloworld,track=stable
-```
-
-```
-kubectl get pods -l app=helloworld,track=canary
-```
-
-## Rolling Updates
-
-```
-less deployments/helloworld-v2.yml
-```
-
-```
-kubectl apply -f deployments/helloworld-v2.yml
-```
-
-```
-kubectl rollout history deployment/helloworld
-```
-
-```
-kubectl rollout undo deployment/helloworld
 ```
